@@ -6,22 +6,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use  HasApiTokens ,HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-    use Notifiable;
+ 
 
-    protected $fillable = [
-        'name', 'email', 'password', 'last_login_at',
-    ];
+    
 
 
     /**
@@ -39,19 +38,27 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-
-    public function savedJobs()
+   protected function casts(): array
 {
-    return $this->belongsToMany(Job::class, 'saved_jobs')->withTimestamps();
+    return [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'notifications_enabled' => 'boolean'
+    ];
 }
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 // في User.php
  public function projects()
@@ -62,4 +69,28 @@ class User extends Authenticatable
  protected $dates = [
         'last_login_at',
     ];
+
+public function savedProjects()
+{
+    return $this->belongsToMany(Project::class, 'job_user', 'user_id', 'project_id')->withTimestamps();
 }
+
+
+
+protected $fillable = [
+    'name',
+    'email',
+    'password',
+    'last_login_at',
+    'language_preference',   // أضف هذا
+    'notifications_enabled', // وأضف هذا
+];
+
+
+
+
+
+
+}
+
+

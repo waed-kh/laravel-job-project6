@@ -398,27 +398,147 @@ top: 20px;
   width: 45px;
   height: 40px;
   position: absolute;
-  top:230px;
+  top:275px;
   left: 710px;
 
   border-radius: 30px;
 }
+
+.modal-content.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #fff;
+  animation: slideUp 0.3s ease-out;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+  max-height: 40vh; /* تحدد ارتفاع مناسب عشان ما يغطي كل الشاشة */
+  overflow-y: auto; /* للسماح بالتمرير داخل المودال إذا المحتوى طويل */
+  z-index: 1055; /* لتكون فوق الخلفية */
+}
+.modal-content.bottom-sheet2 {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #fff;
+  animation: slideUp 0.3s ease-out;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+  max-height: 30vh; /* تحدد ارتفاع مناسب عشان ما يغطي كل الشاشة */
+  overflow-y: auto; /* للسماح بالتمرير داخل المودال إذا المحتوى طويل */
+  z-index: 1055; /* لتكون فوق الخلفية */
+}
+
+
+
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* لمنع مودال البوتستراب الأساسي من الإظهار عشوائياً */
+.modal.fade .modal-dialog {
+  transform: translate(0, 0) !important;
+  transition: none !important;
+
+}
+
+.dev-header {
+      background-color: #48A7A5;
+      color: white;
+      padding: 10px 20px;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      font-weight: bold;
+      font-size: 1.25rem;
+     
+    }
+ 
+
   </style>
 </head>
 <body>
 
   <!-- Banner Image -->
+
+  <div class="dev-header">
+  <a href="{{route('jobs.index')}}" style="color:white; text-decoration:none">&larr; Back</a>
+</div>
+
   <section>
     <img src="{{ asset('img/technology-code-coding-computer.jpg') }}" class="banner-img" alt="Banner">
     <img class="h2" src="{{ asset('img/image.png') }}">
   </section>
 
+<!-- زر لفتح المودال -->
+
+<!-- مودال سفلي بتصميم مشابه للصورة -->
+
+
+
+
+
   <!-- Company Info Section -->
   <section class="company-info">
     <div class="container">
-      <div class="text-center mb-4">
-        <h2>{{ $company->name ?? 'PURE for IT Solutions' }}</h2>
-        <p class="text-muted">({{ $company->registration_number ?? '1012416' }})</p>
+      <div class="text-center ">
+        <a style="h2;  position: relative;
+      left: -30px;"   data-bs-toggle="modal" data-bs-target="#actionModal" >{{ $company->name ?? 'PURE for IT Solutions' }}</a>
+
+      <!-- مودال سفلي بتصميم bottom sheet مثل المودال الثاني -->
+<div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog  modal-fullscreen modal-dialog-centered">
+   
+
+    <div class="modal-content bottom-sheet p-4">
+
+      <div class="text-start">
+        <!-- العنوان -->
+        <h6 class="text-success mb-4 fw-semibold">Take Action</h6>
+
+        <!-- العناصر -->
+        <div class="list-group">
+
+          <!-- اتصال -->
+          <a href="tel:123456789" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center mb-2 rounded shadow-sm border-0" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center">
+              <img src="https://img.icons8.com/color/28/000000/phone.png" class="me-2" />
+              <span>Call</span>
+            </div>
+            <span>&rsaquo;</span>
+          </a>
+
+          <!-- SMS -->
+          <a href="sms:123456789" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center mb-2 rounded shadow-sm border-0" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center">
+              <img src="https://img.icons8.com/color/28/000000/sms.png" class="me-2" />
+              <span>Send SMS</span>
+            </div>
+            <span>&rsaquo;</span>
+          </a>
+
+          <!-- واتساب -->
+          <a href="https://web.whatsapp.com" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center rounded shadow-sm border-0" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center">
+              <img src="https://img.icons8.com/color/28/000000/whatsapp.png" class="me-2" />
+              <span>WhatsApp</span>
+            </div>
+            <span>&rsaquo;</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <p class="text-muted" style=" position: relative; left: -30px; ">({{ $company->registration_number ?? '1012416' }})</p>
       </div>
 
       <div class="info-box">
@@ -431,17 +551,37 @@ top: 20px;
         {{ $company->employees_count ?? '1500+' }}
       </div>
 
-      <div class="info-box d-flex justify-content-between align-items-center">
-        <span class="label">Country</span>
-        <span><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Kuwait.svg" class="flag-icon"> {{ $company->country ?? 'Kuwait' }}</span>
+      <div class="info-box">
+        <span class="label">Country</span><br>
+        {{ $company->country }}
       </div>
 
       <div class="mt-4">
-        <p class="label">BIO</p>
-        <div class="info-box">
-          <p>{{ $company->bio ?? 'Lorem ipsum dolor sit amet consectetur...' }}</p>
-        </div>
+  <p class="label">BIO</p>
+  <div class="info-box">
+    <p id="bio-short">
+      {{ Str::limit($company->bio, 100, '...') }}
+     <a href="#" data-bs-toggle="modal" data-bs-target="#bioModal" style="text-decoration: none; color: #00a6a6;">
+  Read more
+</a>
+
+    </p>
+  </div>
+</div>
+<div class="modal fade" id="bioModal" tabindex="-1" aria-labelledby="bioModalLabel" aria-hidden="true">
+ <div class="modal-dialog  modal-fullscreen modal-dialog-centered">
+    <div class="modal-content bottom-sheet2">
+      <div class="modal-header" style="height: 13vh">
+        <h5 class="modal-title" style="color: #00a6a6;font-weight: 500 ; font-size:30px;" id="bioModalLabel"> bio</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
       </div>
+      <div class="modal-body">
+        <p>{{ $company->bio }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   </section>
 
@@ -467,7 +607,14 @@ top: 20px;
         <h6 class="e"><i id="u" class="fas fa-eye"></i>({{ $job->views ?? '0' }})</h6>
       </div>
 
-      <i id="v" class="far fa-bookmark"></i>
+    @auth
+    <form method="POST" action="{{ route('jobs.save', $job->id) }}">
+        @csrf
+        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">
+            <i id="v" class="far fa-bookmark"></i>
+        </button>
+    </form>
+@endauth
       <i id="v2" class="fas fa-share"></i>
 
       <div class="dd">

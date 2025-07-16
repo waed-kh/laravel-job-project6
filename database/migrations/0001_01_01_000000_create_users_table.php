@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('language_preference')->default('ar');
+            $table->boolean('notifications_enabled')->default(true);
              $table->timestamp('last_login_at')->nullable();
         });
 

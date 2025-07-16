@@ -9,10 +9,12 @@ use App\Listeners\LogUserLogin;                // لازم تستورد هذا �
 class EventServiceProvider extends ServiceProvider
 {
     /**
+     *   
      * The event listener mappings for the application.
      *
      * @var array<class-string, array<int, class-string>>
      */
+    
     protected $listen = [
         Login::class => [
             LogUserLogin::class,

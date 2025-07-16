@@ -177,28 +177,37 @@
     <div class="mt-5">
      
   <div class="container mt-5">
-    <button type="button" class="btn btn-lg w-100 text-white" style="background-color: #009688;" data-bs-toggle="modal" data-bs-target="#successModal">
-      Apply
-    </button>
+ <button type="button" class="btn btn-lg w-100 text-white" style="background-color: #009688;" data-bs-toggle="modal" data-bs-target="#authModal">
+  Apply
+</button>
   </div>
 
-  <!-- مودل بوتستراب -->
-   <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-      <div class="modal-content text-center p-3">
-        <div class="modal-header border-0 justify-content-center">
-          <h5 class="modal-title" id="successModalLabel">Success</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p class="fs-6 mb-0">The operation was successful!</p>
-        </div>
-        <div class="modal-footer border-0 justify-content-center">
-          <button type="button" class="btn btn-success btn-sm px-4" data-bs-dismiss="modal">Close</button>
+
+  
+
+
+<!-- مودال سفلي شبيه بالصورة -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+    <div class="modal-content bottom-sheet p-4" style="border-radius: 1.5rem 1.5rem 0 0;">
+      <div class="text-center">
+
+        <!-- العنوان -->
+        <h6 class="text-success mb-2" style="font-weight: 600;">NOT Registered</h6>
+
+        <!-- الوصف -->
+        <p class="text-muted mb-4">You Are not a member Yet, Do you have an account?</p>
+
+        <!-- أزرار -->
+        <div class="d-grid gap-2">
+          <a href="{{ route('login') }}" class="btn text-white" style="background-color: #009688;">LOGIN</a>
+          <a href="{{ route('register') }}" class="btn btn-outline-success">Register</a>
         </div>
       </div>
     </div>
   </div>
+</div>
+
     
   </div>
 </div>

@@ -11,21 +11,39 @@
   <link href="{{ asset('css/adminlte.css') }}" rel="stylesheet">
   <link href="{{ asset('css/adminlte.css.map') }}" rel="stylesheet">
   <link href="{{ asset('css/alt/adminlte.components.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/alt/adminlte.components.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/bootstrap/js/bootstrap.js') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-<!-- مثال على ملفات Bootstrap 5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   
 <style>
-   .nav-item i {
+
+
+.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #48A7A5;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      color: white;
+      font-size: 14px;
+      z-index: 1000;
+    }
+
+    .nav-item i {
       display: block;
       font-size: 20px;
       color: white;
+    }
+
+    .active-tab {
+      border-top: 3px solid white;
+      padding-top: 5px;
     }
 
 .blue {
@@ -105,12 +123,6 @@ left: 50px;
 border-radius: 5px;
 box-shadow: 0 0 1px;
   }
-
-
-    .active-tab {
-      border-top: 3px solid white;
-      padding-top: 5px;
-    }
    .d2{
     width: 450px;
     height: 70px;
@@ -384,77 +396,33 @@ top: 20px;
       to { transform: translateY(0); }
     }
 
-.bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background-color: #48A7A5;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      color: white;
-      font-size: 14px;
-      z-index: 1000;
-    }
 
 </style>
 </head>
 <body>
 
-  <div class="nav">
-    <p class="text">Fursati</p>
-    <i class="n fas fa-comments"></i>
-    <i class="nav-icon fas fa-search"></i>
-
-    <!-- جرس الاشعارات -->
-    <div class="dropdown" style="position: relative; left:1334px; top:8px ">
-      <a class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="position: relative;">
-        <i class="far fa-bell" style="font-size: 22px; color: #A0B6B4; "></i>
-        <span style="
-          position: absolute;
-          top: -5px;
-          right: -5px;
-          width: 16px;
-          height: 16px;
-          background: rgba(255, 255, 255, 0.7);
-          color: black;
-          font-size: 10px;
-          font-weight: bold;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;">
-          {{ count($users) }}
-        </span>
-      </a>
-
-      <ul class="dropdown-menu dropdown-menu-end shadow" style="min-width: 280px;">
-        <li><h6 class="dropdown-header">آخر 5 مستخدمين</h6></li>
-        @forelse($users as $user)
-          <li>
-            <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
-              <div>
-                <i id="o9" class="fas fa-user me-2"></i>{{ $user->name }}
-              </div>
-              <small class="text-muted">{{ \Carbon\Carbon::parse($user->last_login_at)->diffForHumans() }}</small>
-            </a>
-          </li>
-        @empty
-          <li><span class="dropdown-item text-muted">لا يوجد بيانات</span></li>
-        @endforelse
-
-      </ul>
+       <div class="nav">
+        <p class="text">Bookmarks</p>
+          <i class="n fas fa-comments"></i>
+           <i class="nav-icon fas fa-search"></i>
+             <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+          </a>
+         
     </div>
-  </div>
+  
+    <div class="container">
+        <p class="text2">Wolcome</p>
+        <h3>Mr/Mam Visitor</h3>
 
-  <div class="container">
-    <p class="text2">Wolcome</p>
-    <h3>Mr/Mam Visitor</h3>
-  </div>
 
-  @foreach ($jobs as $job)
+</div>
+<br>
+<br>
+
+    
+
+    @foreach ($jobs as $job)
     <div class="container">
       <div class="dev1">
         <div class="big">
@@ -474,14 +442,9 @@ top: 20px;
         <div class="dig">
           <h6 class="e"><i id="u" class="fas fa-eye"></i>({{ $job->views ?? 0 }})</h6>
         </div>
-      @auth
-    <form method="POST" action="{{ route('jobs.save', $job->id) }}">
-        @csrf
-        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">
-            <i id="v" class="far fa-bookmark"></i>
-        </button>
-    </form>
-@endauth
+  <i id="v" class="fas fa-bookmark" style="color:#48A7A5; font-size: 24px;"></i>
+
+
 
       <!-- زر المشاركة (موجود عندك) -->
 <i id="v2" class="fas fa-share" data-bs-toggle="modal" data-bs-target="#shareModal"></i>
@@ -571,44 +534,27 @@ top: 20px;
       </div>
     </div>
     <br><br>
+</body>
   @endforeach
 
 
+
+
+
+
+
+
+
+
+
+
  <div class="bottom-nav" >
-    <div class="nav-item active-tab"> <a href="{{route('jobs.index')}}"><i class="fas fa-briefcase" style="position: relative; left:6px"></i> </a> jobs</div>
-    <div style="position: relative; left:120px" class="nav-item"> <a href="{{route('jobs.saved')}}"><i class="fas fa-bookmark" style="position: relative; left:18px"></i></a> Bookmark</div>
+    <div class="nav-item"> <a href="{{route('jobs.index')}}"><i class="fas fa-briefcase" style="position: relative; left:6px"></i> </a> jobs</div>
+     <div style="position: relative; left:120px" class="nav-item  active-tab"> <a href="{{route('jobs.saved')}}"><i class="fas fa-bookmark" style="position: relative; left:18px"></i></a> Bookmark</div>
     <div  style="position: relative; left:170px" class="nav-item "> <a href="{{route('settings.show')}}"><i class="fas fa-cog" style="position: relative; left:10px"></i> <a>settings</div>
     <div class="nav-item">  <a href="{{route('company.page')}}"><i class="fas fa-user" style="position: relative; left:7px"></i></a>   Profile</div>
   </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- سكربت الحفظ أو أي شيء عند الضغط على علامة الكتاب -->
-  
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-</body>
-</html>

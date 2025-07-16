@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\company;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCompanyRequest;
+use App\Http\Requests\UpdateCompanyRequest;
 
 class CompanyController extends Controller
 {
@@ -13,46 +14,46 @@ class CompanyController extends Controller
      */
     public function index()
     {
-          return company::all();
+        return company::all();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-   public function store(Request $request)
-{
-    $data = $request->validate([
-        'name' => 'required|string|max:255',
-        'registration_number' => 'nullable|string',
-        'business_type' => 'nullable|string',
-        'employees_count' => 'nullable|integer',
-        'country' => 'nullable|string',
-        'bio' => 'nullable|string',
-    ]);
+    public function store(StoreCompanyRequest $request)
+    {
+        $company = company::create($request->validated());
 
-    $company = company::create($data);
-
-    return response()->json([
-        'message' => 'Company created successfully',
-        'company' => $company,
-    ], 201);
-}
-
+        return response()->json([
+            'message' => 'Company created successfully',
+            'company' => $company,
+        ], 201);
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $company = company::findOrFail($id);
+
+        return response()->json([
+            'company' => $company,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCompanyRequest $request, string $id)
     {
-        //
+        $company = company::findOrFail($id);
+        $company->update($request->validated());
+
+        return response()->json([
+            'message' => 'Company updated successfully',
+            'company' => $company,
+        ]);
     }
 
     /**
@@ -60,6 +61,11 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $company = company::findOrFail($id);
+        $company->delete();
+
+        return response()->json([
+            'message' => 'Company deleted successfully',
+        ]);
     }
 }

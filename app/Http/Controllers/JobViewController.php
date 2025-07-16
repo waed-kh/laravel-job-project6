@@ -6,6 +6,9 @@ use App\Models\Project;
 use App\Models\company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\SavedJob;
+
+use Illuminate\Support\Facades\Auth;
 
 class JobViewController extends Controller
 {
@@ -40,11 +43,52 @@ class JobViewController extends Controller
     }
 
 
+
+public function saveJob($id){
+{
+
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'يجب تسجيل الدخول');
+    }
+
+    $user = Auth::user();
+
+    // تأكد إن العلاقة شغالة
+    try {
+        if (!$user->savedProjects()->where('project_id', $id)->exists()) {
+            $user->savedProjects()->attach($id);
+        }
+    } catch (\Exception $e) {
+        dd('Error:', $e->getMessage());
+    }
+
+    return redirect()->back()->with('success', 'تم الحفظ');
+}
+
+
+
+   
+}
+
+public function savedJobs()
+{
+    $user = Auth::user();
+    $jobs = $user->savedProjects; // يرجع Collection
+
+    return view('book.bookmark', compact('jobs'));
+}
+
+
+
+    
+}
+
+
   
 
 
  
 
 
-}
+
 

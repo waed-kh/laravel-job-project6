@@ -44,16 +44,21 @@ class JobController extends Controller
 }
 
 
-    public function update(Request $request, $id)
-    {
-        $job = Project::findOrFail($id);
-        $job->update($request->all());
-        return response()->json($job, 200);
-    }
+   public function update(Request $request, $id)
+{
+    $project = Project::findOrFail($id);
+    $project->update($request->all());
+
+    return response()->json([
+        'message' => 'Project updated successfully.',
+        'data' => $project
+    ]);
+}
+
 
     public function destroy($id)
     {
         Project::destroy($id);
-        return response()->json(null, 204);
+        return response()->json (['message' => 'Job deleted successfully'], 201);
     }
 }

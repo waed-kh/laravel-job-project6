@@ -40,6 +40,13 @@ class Project extends Model
     {
         return $this->belongsTo(User::class, 'business_man_id');
     }
+
+public function savedByUsers()
+{
+    return $this->belongsToMany(User::class, 'job_user', 'project_id', 'user_id')->withTimestamps();
+}
+
+
     
 }
 
